@@ -6,7 +6,7 @@ import pokeApi from "../../api/index";
 import { Button, Card, Container, Grid, Text, Image } from "@nextui-org/react";
 import { localFavorites } from "../../utils";
 import confetti from "canvas-confetti";
-import { getPokemonInfo } from '../../utils/getPokemonInfo';
+import { getPokemonInfo } from "../../utils/getPokemonInfo";
 
 interface Props {
   pokemon: Pokemon;
@@ -113,12 +113,15 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({params}) => {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { id } = params as { id: string }; // no longer causes error
+  const pokemon = await getPokemonInfo(id);
+
+  console.log(pokemon, "ACAAA");
 
   return {
     props: {
-      pokemon: await getPokemonInfo(id)
+      pokemon
     },
   };
 };
